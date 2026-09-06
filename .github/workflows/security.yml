@@ -1,0 +1,23 @@
+name: security-scan
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  terraform-security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - name: Terraform format
+        run: terraform fmt -check -recursive
+      - name: Install Checkov
+        run: pip install checkov
+      - name: IaC security scan
+        run: checkov -d . --framework terraform --soft-fail
