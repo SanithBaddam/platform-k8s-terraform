@@ -1,0 +1,17 @@
+prometheus:
+  enabled: true
+grafana:
+  enabled: true
+  adminPassword: ""
+  persistence:
+    enabled: true
+    size: 10Gi
+datadog:
+  enabled: false
+  apiKeyExistingSecret: datadog-api-key
+  clusterAgent:
+    enabled: true
+platform:
+  podDisruptionBudgets: true
+  networkPolicies: true
+  workloadIdentity: true
